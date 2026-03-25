@@ -1,0 +1,94 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+
+<style>
+    h1 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .date {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 15px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #4CAF50;
+        font-weight: 500;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    h2 {
+        margin-top: 30px;
+        color: #333;
+    }
+
+    .comment {
+        background-color: #ffffff;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.08);
+    }
+
+    .comment .info {
+        font-size: 13px;
+        color: #777;
+        margin-bottom: 8px;
+    }
+
+    p {
+        color: #444;
+        line-height: 1.6;
+    }
+
+    form {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+</style>
+
+<h1>{{ post.title }}</h1>
+
+<p class="date">
+  Published {{ post.publish }} by {{ post.author }}
+</p>
+
+<p>
+  <a href="{% url "blog:post_share" post.id %}">
+    Share this post
+  </a>
+</p>
+
+{% with comments.count as total_comments %}
+  <h2>
+    {{ total_comments }} comment{{ total_comments|pluralize }}
+  </h2>
+{% endwith %}
+
+{% for comment in comments %}
+  <div class="comment">
+    <p class="info">
+      Comment {{ forloop.counter }} by {{ comment.name }}
+      {{ comment.created }}
+    </p>
+    {{ comment.body|linebreaks }}
+  </div>
+{% empty %}
+  <p>There are no comments.</p>
+{% endfor %}
+
+{% include "blog/post/includes/comment_form.html" %}
+
+{% endblock %}

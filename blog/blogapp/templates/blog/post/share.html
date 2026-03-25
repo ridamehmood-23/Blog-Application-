@@ -1,0 +1,101 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Share a post{% endblock %}
+
+{% block content %}
+
+<style>
+    .share-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 25px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    .share-container h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .share-container p {
+        text-align: center;
+        color: #555;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    form p {
+        margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        transition: 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .success {
+        text-align: center;
+        padding: 15px;
+        background-color: #e6f4ea;
+        border: 1px solid #4CAF50;
+        border-radius: 8px;
+        color: #2e7d32;
+    }
+</style>
+
+<div class="share-container">
+
+  {% if sent %}
+    <div class="success">
+      <h1>E-mail successfully sent</h1>
+      <p>
+        "{{ post.title }}" was successfully sent to {{ form.cleaned_data.to }}.
+      </p>
+    </div>
+  {% else %}
+    <h1>Share "{{ post.title }}" by e-mail</h1>
+    <form method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" value="Send e-mail">
+    </form>
+  {% endif %}
+
+</div>
+
+{% endblock %}

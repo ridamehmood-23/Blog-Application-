@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Comment</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        form {
+            width: 400px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .left {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Add a new comment</h2>
+
+<form action="{% url 'blog:post_comment' post.id %}" method="post">
+    
+    <div class="left">
+        {{ form.name.as_field_group }}
+    </div>
+
+    <div class="left">
+        {{ form.email.as_field_group }}
+    </div>
+
+    {{ form.body.as_field_group }}
+
+    {% csrf_token %}
+
+    <p><input type="submit" value="Add comment"></p>
+
+</form>
+
+</body>
+</html>

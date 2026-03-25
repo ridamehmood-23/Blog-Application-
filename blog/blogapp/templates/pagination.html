@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagination</title>
+
+    <style>
+        .pagination {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .step-links a {
+            padding: 8px 14px;
+            margin: 0 5px;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .step-links a:hover {
+            background-color: #45a049;
+        }
+
+        .current {
+            margin: 0 10px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="pagination">
+  <span class="step-links">
+    {% if page.has_previous %}
+      <a href="?page={{ page.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ page.number }} of {{ page.paginator.num_pages }}.
+    </span>
+
+    {% if page.has_next %}
+      <a href="?page={{ page.next_page_number }}">Next</a>
+    {% endif %}
+  </span>
+</div>
+
+</body>
+</html>
